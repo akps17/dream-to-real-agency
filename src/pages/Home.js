@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { FacebookIcon } from '@heroicons/react/24/outline';
 import coverImage from '../main/asset/images/cover.jpg';
 import logo from '../main/asset/images/logo.jpg';
 
@@ -53,31 +54,50 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {/* Left side content */}
             <div className="relative z-10 px-6 py-20 sm:py-28 lg:px-8 lg:py-44">
-              <div className="mx-auto max-w-2xl lg:mx-0">
-                <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  Apply Korean Universities With Dream To Real
-                </h1>
-                <p className="mt-6 text-lg leading-8 text-gray-600">
-                  We help you study in Korea with full support: from university applications to your Visa, Dormitory, flight ticket, and more...
+              <div className="mx-auto max-w-2xl lg:mx-0 space-y-8">
+                <div className="space-y-4">
+                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-tight">
+                    "Apply Korea Universities With Dream To Real"
+                  </h1>
+                  <h1 className="text-2xl sm:text-3xl font-bold text-primary leading-tight">
+                  Dream To Real ဖြင့် ကိုရီယားတက္ကသိုလ်များလျှောက်ထားပါ။
+                  </h1>
+               
+                </div>
+                
+                <p className="text-lg sm:text-xl leading-relaxed text-gray-600 max-w-xl">
+                - ကိုရီးယားတွင် ပညာသင်ကြားရန်  တက္ကသိုလ်  ကျောင်းလျှောက်လွှာ ၊ ဗီဇာ၊ ကျောင်းဆောင်၊ လေယာဉ်လက်မှတ်နှင့် အခမဲ့ ဆွေးနွေးတိုင်ပင်မှုများအထိ...
                 </p>
-                <div className="mt-10 flex items-center gap-x-6">
+
+                <div className="flex items-center gap-x-4 pt-4">
                   <Link
                     to="/contact"
-                    className="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                    className="rounded-md bg-primary px-5 py-3 text-base font-semibold text-white shadow-sm hover:bg-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition duration-150"
                   >
                     Apply Now
                   </Link>
                   <Link
                     to="/services"
-                    className="text-sm font-semibold leading-6 text-gray-900"
+                    className="text-base font-semibold leading-6 text-gray-900 hover:text-primary flex items-center transition duration-150"
                   >
-                    Learn more <span aria-hidden="true">→</span>
+                    Learn more <span aria-hidden="true" className="ml-1">→</span>
                   </Link>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=61556642747393"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-base font-semibold leading-6 text-[#1877F2] hover:text-blue-700 flex items-center transition duration-150"
+                  >
+                    <svg className="h-5 w-5 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                    </svg>
+                    Facebook
+                  </a>
                 </div>
               </div>
             </div>
 
-            {/* Right side - Centered logo */}
+            {/* Right side - Logo */}
             <div className="bg-white lg:h-full flex items-center justify-center p-8">
               <img
                 className="w-[500px] h-[500px] object-contain"
