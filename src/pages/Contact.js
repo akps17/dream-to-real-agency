@@ -11,20 +11,75 @@ export default function Contact() {
     preferredProgram: 'undergraduate',
   });
 
-  const handleSubmit = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
+
+  const validateForm = () => {
+    if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please enter a valid email address'
+      });
+      return false;
+    }
+
+    if (!formData.phone.match(/^[0-9+\-\s()]{6,}$/)) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please enter a valid phone number'
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      message: '',
-      preferredProgram: 'undergraduate',
-    });
-    alert('Thank you for your inquiry. We will contact you soon!');
+    setSubmitStatus({ type: '', message: '' });
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Store in localStorage
+      const submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+      submissions.push({
+        ...formData,
+        id: Date.now(),
+        submittedAt: new Date().toISOString()
+      });
+      localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
+
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      setSubmitStatus({
+        type: 'success',
+        message: 'Thank you for your inquiry! We will contact you soon.'
+      });
+
+      // Reset form
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        message: '',
+        preferredProgram: 'undergraduate',
+      });
+
+    } catch (error) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Something went wrong. Please try again.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -33,6 +88,10 @@ export default function Contact() {
       ...prev,
       [name]: value,
     }));
+    // Clear error message when user starts typing
+    if (submitStatus.type === 'error') {
+      setSubmitStatus({ type: '', message: '' });
+    }
   };
 
   return (
@@ -64,9 +123,9 @@ export default function Contact() {
                   <MapPinIcon className="h-7 w-6 text-gray-400" aria-hidden="true" />
                 </dt>
                 <dd>
-                No. 66/68(B) Ist floor, San Yeik Nyein (6) Street, No.(2) Ward, Kamayut Township
-                  <br />
-                  Yangon, Myanmar
+                  No. 66/68(B) 1st floor,<br />
+                  San Yeik Nyein (6) Street, No.(2) Ward,<br />
+                  Kamayut Township, Yangon, Myanmar
                 </dd>
               </div>
               <div className="flex gap-x-4">
@@ -97,9 +156,12 @@ export default function Contact() {
             <div className="mt-10 rounded-lg overflow-hidden">
               <iframe
                 title="Office Location"
-                className="w-full h-[300px]"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15472.453786745!2d96.1561315!3d16.7915451!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1eb78344f3ac1%3A0x5b04a8afd16cc95!2sYangon%2C%20Myanmar%20(Burma)!5e0!3m2!1sen!2s!4v1647856732245!5m2!1sen!2s"
+                className="w-full h-[400px]"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3818.674751471586!2d96.13399147507661!3d16.84030318394006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c194c9c9e94d53%3A0x6e5c2c9f9d14d26d!2sSan%20Yeik%20Nyein%206th%20St%2C%20Yangon!5e0!3m2!1sen!2smm!4v1709799144565!5m2!1sen!2smm"
+                style={{ border: 0 }}
+                allowFullScreen=""
                 loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
             </div>
           </div>
@@ -107,6 +169,17 @@ export default function Contact() {
           {/* Contact form */}
           <div className="lg:col-span-2">
             <form onSubmit={handleSubmit} className="space-y-8">
+              {submitStatus.message && (
+                <div
+                  className={`p-4 rounded-md ${
+                    submitStatus.type === 'success'
+                      ? 'bg-green-50 text-green-700'
+                      : 'bg-red-50 text-red-700'
+                  }`}
+                >
+                  {submitStatus.message}
+                </div>
+              )}
               <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                 <div>
                   <label htmlFor="firstName" className="block text-sm font-semibold leading-6 text-gray-900">
@@ -211,9 +284,14 @@ export default function Contact() {
               <div>
                 <button
                   type="submit"
-                  className="rounded-md bg-primary px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  disabled={isSubmitting}
+                  className={`rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary w-full sm:w-auto
+                    ${isSubmitting 
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : 'bg-primary hover:bg-primary-dark'
+                    }`}
                 >
-                  Send Message
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
               </div>
             </form>

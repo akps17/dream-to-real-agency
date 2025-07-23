@@ -10,7 +10,7 @@ const navigation = {
   social: [
     {
       name: 'Facebook',
-      href: '#',
+      href: 'https://www.facebook.com/profile.php?id=61556642747393',
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -60,9 +60,11 @@ export default function Footer() {
         </div>
         <div className="mt-10 text-center">
           <div className="text-sm leading-6 text-gray-600">
-            <p>123 Study Abroad Street, Yangon, Myanmar</p>
-            <p>Phone: +95 9 123 456 789</p>
-            <p>Email: contact@studyinkorea.com</p>
+            <p>No. 66/68(B) 1st floor,
+San Yeik Nyein (6) Street, No.(2) Ward,
+Kamayut Township, Yangon, Myanmar</p>
+            <p>Phone: +95 9699282968</p>
+            <p>Email: dreamtorealedu@gmail.com</p>
           </div>
           <p className="mt-10 text-xs leading-5 text-gray-500">&copy; 2024 Education Agency. All rights reserved.</p>
         </div>

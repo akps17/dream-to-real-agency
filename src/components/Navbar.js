@@ -59,7 +59,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between">
             <Link to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img className="h-8 w-auto" src="/logo.jpg" alt="Company Logo" />
+              <img className="h-8 w-auto" src="logo" alt="Company Logo" />
             </Link>
             <button
               type="button"
