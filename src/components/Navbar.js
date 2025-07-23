@@ -11,8 +11,18 @@ const navigation = [
   { 
     name: 'University Ranking', 
     href: 'https://www.scimagoir.com/rankings.php?sector=Higher+educ.&country=KOR',
-    isExternal: true 
+    isExternal: false
   },
+  {
+    name: 'Korea Embassy',
+    href: 'https://overseas.mofa.go.kr/mm-en/index.do',
+    isExternal: false
+  },
+  {
+    name: 'Notary',
+    href: 'https://www.g4k.go.kr/biz/main/main.do',
+    isExternal:false
+  }
 ];
 
 export default function Navbar() {
