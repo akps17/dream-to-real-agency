@@ -5,9 +5,6 @@ import logo from '../main/asset/images/logo.jpg';
 
 const navigation = [
   { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Services', href: '/services' },
-  { name: 'Contact', href: '/contact' },
   { 
     name: 'University Ranking', 
     href: 'https://www.scimagoir.com/rankings.php?sector=Higher+educ.&country=KOR',
@@ -22,7 +19,12 @@ const navigation = [
     name: 'Notary',
     href: 'https://www.g4k.go.kr/biz/main/main.do',
     isExternal:false
-  }
+  },
+  
+  { name: 'About', href: '/about' },
+  { name: 'Services', href: '/services' },
+  { name: 'Contact', href: '/contact' },
+
 ];
 
 export default function Navbar() {
